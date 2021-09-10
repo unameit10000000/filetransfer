@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>filetransfer - upload</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body,h1 {
+            font-family: "Raleway", sans-serif
+        }
+        body, html {
+            height: 100%
+        }
+        .bgimg {
+            background-image: url('../static/bg.jpg');
+            min-height: 100%;
+            background-position: center;
+            background-size: cover;
+        }
+        a:link {
+            text-decoration: none;
+            color:white
+        }
+        a:visited {
+            color: rgb(0, 200, 186);
+        }
+        a:hover {
+            color: rgb(0, 150, 136);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: rgba(23,46,54);
+            margin: auto;
+            padding: 20px;
+            border: 1px solid rgba(23,46,54);
+            border-radius: 2px;
+            width: 80%;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+        }
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        input[type="file"] {
+            display: none;
+        }
+
+        .fileInput {
+            cursor: pointer;
+            color: rgb(0, 150, 136)
+        }
+        .fileInput:hover {
+            cursor: pointer;
+            color: rgb(0, 150, 136,0.2)
+        }
+    </style>
+</head>
+<body>
+    {% if host %}
+        {% if port %}
+            {% if session_id %}
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <a href="" target="_blank" id="modal-fb-link"></a>
+                    </div>
+                </div>
+                <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+                    <div class="w3-display-topleft w3-padding-large w3-xlarge">
+                        FILETRANSFER DEMO
+                    </div>
+                    <div class="w3-display-topmiddle">
+                        <h1 class="w3-jumbo w3-animate-top">Upload</h1>
+                    </div>
+                    {% if username %}
+                            <div class="w3-display-topright w3-padding-large">
+                                <p>logged in:</p>
+                                <p style="color: rgb(0, 150, 136);">{{username}}</p>
+                            </div>
+                    {% else %}
+                        <div class="w3-display-topright w3-padding-large">
+                            <a href="http://{{host}}:{{port}}">log out</a>
+                            <p style="color: rgb(255,125,125)">invalid credentials</p>
+                        </div>
+                    {% endif %}
+                    <div class="w3-display-middle">
+                        <div class="w3-container">
+                        <form action="" method="POST" id="upload-form">
+                            <label class="fileInput w3-padding w3-jumbo">
+                                <input type="file" onchange="saveFile(this)"/>
+                                <i class="material-icons w3-jumbo">search</i>
+                            </label>
+                        </form>
+                        </div>
+                    </div>
+                    <div class="w3-display-bottommiddle w3-padding-64">
+                        <p id="status"></p>
+                    </div>
+                    <div class="w3-display-bottomleft w3-padding-large">
+                        Powered by <a href="https://filebase.com" style="color: rgb(255,200,100);" target="_blank">Filebase</a>
+                    </div>
+                </div>
+            
+                <script type="text/javascript">
+                    let host = `{{host}}`
+                    let port = `{{port}}`
+                    let sess = `{{session_id}}`
+
+                    upload_url = "http://"+host+":"+port+"/upload/"+sess
+                    download_url = "http://"+host+":"+port+"/download/"
+
+                    async function saveFile(inp) 
+                    {
+                        document.getElementById("status").innerHTML = "uploading file,   please wait..."
+
+                        let formData = new FormData();
+                        let file = inp.files[0];
+                        formData.append(file.name, file);
+                        
+                        const ctrl = new AbortController()    // timeout
+                        setTimeout(() => ctrl.abort(), 360000);
+
+                        try {
+                            let response = await fetch(upload_url,
+                            {method: "POST", body: formData, signal: ctrl.signal}); 
+
+                            if(response.status == 200){
+                                document.getElementById("status").innerHTML = "successfully uploaded!"
+
+                                const jobj = await response.json()
+                                sharedLink = download_url+jobj['ref']
+
+                                var el_href = document.getElementById("modal-fb-link");
+                                el_href.setAttribute('href', sharedLink)
+                                el_href.innerHTML = sharedLink
+                                modal.style.display = "block";
+                            }
+                        } catch(e) {
+                            console.log("Err: Could not connect:", e);
+                            document.getElementById("status").innerHTML = "upload failed, try again please!"
+                        }
+                    }
+
+                    var modal = document.getElementById("myModal");
+                    var span = document.getElementsByClassName("close")[0];
+                    
+                    span.onclick = function() {
+                        modal.style.display = "none";
+                    }
+
+                    window.onclick = function(event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    }
+                </script>
+
+            {% endif %}
+        {% endif %}
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+    app:
+        depends_on: 
+            - db-0
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: app
+        volumes:
+            - .:/app
+        ports:
+            - "5006:5006"
+        networks:
+            - app_net
+        restart: always
+    db-0:
+        image: mysql:5.7.22
+        environment:
+            MYSQL_DATABASE: main
+            # MYSQL_USER: root 
+            # MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: root
+        container_name: db-0
+        volumes:
+            - .dbdata:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        networks:
+            - app_net
+        restart: always
+
+networks:
+  app_net:
+    driver: bridge
