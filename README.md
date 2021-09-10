@@ -68,6 +68,9 @@ docker-compose up --build
  -  Create a `.dockerignore` file.
  -  Old download references stored in the local db seems to restore old deleted bucketnames, fix this.
 
+ **IDEAS**:
+ -  Let downloads expire after sometime, similar to WeTranswer, by implementing a background worker. (Celery, RabbitMQ)
+
 ## Disclaimer
 
 This application is a demo, not a production ready application. Make the nessecary security adjustments before exposing it. If there are any remarks, questions and/or issues regarding this repo feel to contact me. (see: <code><a href="https://github.com/unameit10000000">profile</a></code>)
