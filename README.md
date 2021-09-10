@@ -8,7 +8,7 @@ When running the demo app, a local flask server with a basic client interface wi
  -  Server: Python, Flask, MySQL, AWS SDK Boto3
  -  Decentralized Storage: Filebase (Storj, Skynet, Sia)
 
-## Requirments
+## Requirements
  -  Docker: https://docs.docker.com/get-docker/
  -  Filebase Access Keys: https://filebase.com/
 
