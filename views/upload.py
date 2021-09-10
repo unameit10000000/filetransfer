@@ -82,15 +82,15 @@ def upload(id):
                 if not bucketname or bucketname is None:
 
                     # No bucketname env variables retrieved
-                    # Retry getting env from Dockerfile
+                    # Retry getting env defined in Dockerfile
                     bucketname = os.getenv("FB_DEFAULT_BUCKET")
 
                     # If all didn't work use a unique id for bucketname
                     if not bucketname or bucketname is None:
 
                         # Again, no bucketname env variables retrieved
-                        # First check if there are any existing buckets on Filebase to use
-                        # If err (-1), no buckets could be found. Create and init a new bucket
+                        # Continue to check if there are any existing buckets on Filebase to use
+                        # If err = -1, no buckets could be found. Create and init a new bucket
                         fileBucket = IBucket(None, fbSettings.s3Client, fbSettings.s3Resource)
                         if fileBucket.init() == -1:
                             bucketname = uuid.uuid1().hex
