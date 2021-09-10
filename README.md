@@ -62,9 +62,9 @@ docker-compose up --build
 
  **TODO**:
  -  Create a profile and insert Filebase Access Keys via the initial login page instead of hardcoded.
- -  Update profile info.
+ -  Update profile info feature.
  -  Create a FileTransfer Docker image.
- -  Create a Akash Deployment.
+ -  Create a Akash Deployment file to run the app on the dcloud.
  -  Create a `.dockerignore` file.
  -  Old download references stored in the local db seems to restore old deleted bucketnames, fix this.
 
