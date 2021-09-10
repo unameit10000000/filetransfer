@@ -69,7 +69,7 @@ docker-compose up --build
  -  Old download references stored in the local db seems to restore old deleted bucketnames, fix this.
 
  **IDEAS**:
- -  Let downloads expire after sometime, similar to WeTranswer, by implementing a background worker. (Celery, RabbitMQ)
+ -  Let download links expire after sometime, similar to WeTranswer, by implementing a background worker. (Celery, RabbitMQ)
 
 ## Disclaimer
 
