@@ -73,4 +73,4 @@ docker-compose up --build
 
 ## Disclaimer
 
-This application is a demo, not a production ready application. Make the nessecary security adjustments before exposing it. If there are any remarks, questions and/or issues regarding this repo feel to contact me. (see: <code><a href="https://github.com/unameit10000000">profile</a></code>)
+This application is a demo, not a production ready application. Make the nessecary security adjustments before exposing it. If there are any remarks, questions and/or issues regarding this repo feel free to contact me. (see: <code><a href="https://github.com/unameit10000000">profile</a></code>)
