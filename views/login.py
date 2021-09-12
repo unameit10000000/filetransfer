@@ -13,7 +13,7 @@ bp = Blueprint('login', __name__, url_prefix='/admin', template_folder="template
 
 
 import os
-from run import db, UserModel
+from datastore import db, UserModel
 
 
 @bp.route('/login', methods=['POST', 'GET'])

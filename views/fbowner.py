@@ -18,7 +18,7 @@ Access Filebase data
 
 # from filebase import settings as fbSettings
 # from filebase import owner as fbOwner
-# from run import db
+# from datastore import db
 
 
 # @bp.route('/info/<id>', methods=['GET'])
