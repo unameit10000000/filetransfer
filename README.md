@@ -58,7 +58,7 @@ docker-compose up --build
  - When changing MySQL db/username/password, make sure to update `SQLALCHEMY_DATABASE_URI` in `run.py`.
 
 ***general***  
- -  **WARNING**: As mentioned in `Dockerfile`, it's not recommended to create public images and deployments by using the Filebase Access keys inside a Dockerfile, instead modify the code and add it to a secured database instance.
+ -  **WARNING**: As mentioned in `Dockerfile`, it's not recommended to create public images and deployments by using the Filebase Access keys inside a Dockerfile, instead modify the code so it can be added to a secured database instance. (During the login process for example)
 
  **TODO**:
  -  Create a profile and insert Filebase Access Keys via the initial login page instead of hardcoded.
